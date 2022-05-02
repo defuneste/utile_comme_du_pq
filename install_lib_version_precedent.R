@@ -17,3 +17,6 @@ to_install <- unname(installed.packages(lib.loc = ancien_chemin)[, "Package"])
 
 install.packages(pkgs = to_install)
 
+# list de packqge ou l'install n'a pas bien fonctionné
+# ils sont pe pas du CRAN 
+to_install[!to_install %in% row.names(installed.packages())]
