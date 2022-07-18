@@ -3,10 +3,10 @@
 # il marche en prenant la version actuelle et demande l'ancienne version
 # inspiration : https://community.rstudio.com/t/reinstalling-packages-on-new-version-of-r/7670/4
 
-ancienne_version <- "3.6"  
+ancienne_version <- "4.1"  
 chemins <- .libPaths() # trouver la liste des chemins
 
-version <- format(as.numeric(R.Version()$major) + as.numeric(R.Version()$minor), nsmall = 1) # on prend la version actuelle 
+version <- format(as.numeric(R.Version()$major) + as.numeric(R.Version()$minor)/10, nsmall = 1) # on prend la version actuelle 
 
 # on change le chemin actuel par l'ancien pour y chercher la list des packages
 ancien_chemin <-  gsub(pattern = version, 
@@ -17,3 +17,6 @@ to_install <- unname(installed.packages(lib.loc = ancien_chemin)[, "Package"])
 
 install.packages(pkgs = to_install)
 
+# list de packqge ou l'install n'a pas bien fonctionné
+# ils sont pe pas du CRAN 
+to_install[!to_install %in% row.names(installed.packages())]
