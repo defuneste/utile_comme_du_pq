@@ -348,3 +348,87 @@ pol <-st_polygon(list(p1))
 plot(pol)
 
 ## 35. Polygon - Self-overlap; Pos and Neg winding
+
+p1 <- rbind(c(1,1), c(8,1), c(8,7), c(3,7), c(3,5), c(7,5), c(7,3)
+            , c(5,3), c(5,8), c(1, 8), c(1,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+
+## 36. Polygon - Self-overlap; double Pos and single Neg winding 
+
+p1 <- rbind(c(1,1), c(1,8), c(4.5,8), c(4.5,2), c(6,2), c(6,4), c(3,4)
+            , c(3,6), c(8,6), c(8, 1), c(1,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+## 37. Polygon - Self-overlap; double Pos and single Neg winding 
+
+p1 <- rbind(c(2,1), c(2,7), c(6,7), c(6,2), c(3,2), c(3,6), c(5,6)
+            , c(5,3), c(8,3), c(8, 5), c(1,5), c(1,8),c(8,8), c(7,1), c(2,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+## 38. Polygon - Self-overlap - Pos and Neg winding 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(6,1), c(3,3), c(7,6)
+            , c(6,7.5), c(3.5, 5.5), c(5.5,5.5), c(3,7.5),c(2,6)
+            , c(6,3), c(3,1),  c(1,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+## 39. Polygon - Self-overlap; exterior
+
+p1 <- rbind(c(1,1), c(1,3), c(7,3), c(7,6), c(1,6), c(1,8), c(3,8)
+            , c(3,2), c(5,2), c(5, 8), c(8,8), c(8,1), c(1,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+## 40. Polygon - Self-overlap; Spiral with Pos winding
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,2), c(2,2), c(2,7), c(7,7)
+            , c(7,3), c(3,3), c(3, 6), c(6,6), c(6,4), c(4,4), c(4,5), c(5,5),
+            c(5,1), c(1,1))
+
+pol <-st_polygon(list(p1))
+plot(pol)
+
+## 41. Polygon/Hole - Bowties 
+
+p1 <- rbind(c(1,1), c(8,8), c(1,8), c(8,1), c(1,1))
+p2 <- rbind(c(3,2), c(6,7), c(3,7), c(6,2), c(3,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 42. Polygon/Hole - Bowties, overlap
+
+p1 <- rbind(c(2,1), c(8,8), c(2,8), c(8,1), c(2,1))
+p2 <- rbind(c(1,2), c(4.5,7), c(1,7), c(4.5,2), c(1,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+
+## XX Polygon/Holes - Disconnected interior, point touch
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,4.5), c(4.5,7), c(7,4.5), c(4.5,2), c(6,5.5), 
+            c(3, 5.5), c(4.5,2), c(2,4.5))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## XX+1 Polygon/Holes - Disconnected interior, point-line touch 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(3,2), c(3,5), c(2,5), c(6,7), c(6,5), 
+            c(7,6), c(7,3.5), c(4.5,3.5), c(6,5), c(3,5), c(6,2), c(3,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
