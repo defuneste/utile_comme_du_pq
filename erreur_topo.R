@@ -414,6 +414,50 @@ p2 <- rbind(c(1,2), c(4.5,7), c(1,7), c(4.5,2), c(1,2))
 pol <-st_polygon(list(p1, p2))
 plot(pol)
 
+## 43. Polygon/Hole - Hole Self-overlap - interior
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,6), c(7,6), c(7,4.5), c(3,4.5)
+            , c(3, 3), c(4.5, 3), c(4.5,7), c(6,7), c(6,2), c(2,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 44.  Polygon/Hole - Hole Self-overlap - Spiral with Neg winding
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,7), c(7,7), c(7,2.5), c(2.5,2.5)
+            , c(2.5, 6.5), c(6.5, 6.5), c(6.5,3), c(3,3), c(3,6), c(6,6),
+            c(6,3.5), c(3.5,3.5), c(3.5,5.5), c(5.5,5.5), c(5.5,2), c(2,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 45. Polygon/Hole - Hole Self-overlap - exterior
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,7), c(3.5,7), c(3.5,3.5), c(5,3.5)
+            , c(5, 7), c(7, 7), c(7,6), c(3,6), c(3,5), c(7,5),
+            c(7,2), c(2,2))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 46. Polygon/Hole - Outside
+# no idea
+
+## 47. Polygon/Hole - Overlap
+# no idea
+
+## 48. Polygon/Hole - Equal
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+
 
 ## XX Polygon/Holes - Disconnected interior, point touch
 
