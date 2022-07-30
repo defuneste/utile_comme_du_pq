@@ -458,6 +458,44 @@ pol <-st_polygon(list(p1, p2))
 plot(pol)
 
 
+## 49. Polygon/Hole - Disconnected interior
+# no idea
+
+## 50. Polygon/Hole - Collapsed shell 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(1,8), c(1,1))
+p2 <- rbind(c(2,4), c(2,6), c(4,6), c(4,4), c(2,4))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 51. Polygon/Hole - Collapsed hole
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,4), c(2,6), c(4,6), c(2,6), c(2,4))
+
+pol <-st_polygon(list(p1, p2))
+plot(pol)
+
+## 52. Polygon/Holes - Overlap
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,6), c(6,6), c(6,2), c(2,2))
+p3 <- rbind(c(3,3), c(3,7), c(7,7), c(7,3), c(3,3))
+
+pol <-st_polygon(list(p1, p2, p3))
+plot(pol)
+
+## 53. Polygon/Holes - Cover Exactly 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(1,1), c(1,4.5), c(4.5,4.5), c(4.5,1), c(1,1))
+p3 <- rbind(c(1,4.5), c(1,8), c(4.5,8), c(4.5,4.5), c(1,4.5))
+p4 <- rbind(c(4.5,4.5), c(4.5,8), c(8,8), c(8,4.5), c(4.5,4.5))
+p5 <- rbind(c(4.5,1), c(4.5,4.5), c(8,4.5), c(8,1), c(4.5,1))
+
+pol <-st_polygon(list(p1, p2, p3, p4, p5))
+plot(pol)
 
 ## XX Polygon/Holes - Disconnected interior, point touch
 
