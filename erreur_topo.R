@@ -4,7 +4,7 @@ library(sfheaders)
 # inspiration : 
 # http://s3.cleverelephant.ca/invalid.html
 
-## usefull functions 
+## 1.  usefull functions  ========================================================
 ### function to convert sfheaders to sf and plot it
 quick_plot <- function(df){
     plot(sfheaders::sf_polygon(df))
@@ -18,6 +18,8 @@ scaling_sfheader <- function(df, scales = 0.8){
     df_scale = (df_sf - df_centroid) * scales + df_centroid
         return(st_coordinates(df_scale$geometry)[,1:2])
 }
+
+
 
 ##  1. Polygon - Exverted shell, point touch
 df <- data.frame(
@@ -497,7 +499,16 @@ p5 <- rbind(c(4.5,1), c(4.5,4.5), c(8,4.5), c(8,1), c(4.5,1))
 pol <-st_polygon(list(p1, p2, p3, p4, p5))
 plot(pol)
 
-## XX Polygon/Holes - Disconnected interior, point touch
+## 54. Polygon/Holes - Nested 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,7), c(7,7), c(7,2), c(2,2))
+p3 <- rbind(c(3,3), c(3,6), c(6,6), c(6,3), c(3,3))
+
+pol <-st_polygon(list(p1, p2, p3))
+plot(pol)
+
+## 55 Polygon/Holes - Disconnected interior, point touch
 
 p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
 p2 <- rbind(c(2,4.5), c(4.5,7), c(7,4.5), c(4.5,2), c(6,5.5), 
@@ -506,11 +517,149 @@ p2 <- rbind(c(2,4.5), c(4.5,7), c(7,4.5), c(4.5,2), c(6,5.5),
 pol <-st_polygon(list(p1, p2))
 plot(pol)
 
-## XX+1 Polygon/Holes - Disconnected interior, point-line touch 
+## 56 Polygon/Holes - Disconnected interior, point-line touch 
 
 p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
-p2 <- rbind(c(3,2), c(3,5), c(2,5), c(6,7), c(6,5), 
-            c(7,6), c(7,3.5), c(4.5,3.5), c(6,5), c(3,5), c(6,2), c(3,2))
-
-pol <-st_polygon(list(p1, p2))
+p2 <- rbind(c(2,5), c(6,7), c(6,5), c(2,5)) 
+p3 <- rbind(c(3,5), c(3,2), c(6,2), c(3,5))
+p4 <- rbind(c(7,6), c(7,3.5), c(4.5,3.5), c(7,6))
+            
+pol <-st_polygon(list(p1, p2, p3, p4))
 plot(pol)
+
+## 57. Polygon/Holes - Disconnected interior, line touch
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(2,7), c(4.5,4.5), c(4.5,2), c(2,2)) 
+p3 <- rbind(c(4.5,2), c(4.5,4.5), c(7,7), c(7,2), c(4.5,2))
+p4 <- rbind(c(2,7), c(4.5,7.5), c(7,7), c(6,6), c(3,6), c(2,7))
+
+pol <-st_polygon(list(p1, p2, p3, p4))
+plot(pol)
+
+## 58. Polygon/Holes - Disconnected interior, overlapping bowtie holes
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2,2), c(6,2), c(2,7), c(6,7), c(2,2)) 
+p3 <- rbind(c(4,3), c(7,3), c(4,6), c(7,6), c(4,3))
+
+pol <-st_polygon(list(p1, p2, p3))
+plot(pol)
+
+## 59. Polygon/Holes - Disconnected interior, overlapping zero-area holes 
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(3,2), c(3,6), c(7,6), c(3,6), c(3,2)) 
+p3 <- rbind(c(2,3), c(6,3), c(6,7), c(6,3), c(2,3))
+
+pol <-st_polygon(list(p1, p2, p3))
+plot(pol)
+            
+## 60. Polygon/Holes - Disconnected interior, overlapping holes
+
+p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(2.5,1.5), c(2.5,6.5), c(7,6.5), c(7,6), c(3,6), c(3,1.5), c(2.5, 1.5)) 
+p3 <- rbind(c(2,2), c(6.5,2), c(6.5,7), c(6,7), c(6,2.5), c(2, 2.5), c(2,2))
+
+pol <-st_polygon(list(p1, p2, p3))
+plot(pol)
+
+## 61. MultiPolygon - Nested Polygons
+
+p1 <- list(rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1)))
+p2 <- list(rbind(c(3,3), c(3,6), c(6,6), c(6,3), c(3,3))) 
+
+
+pol <-st_multipolygon(list(p1, p2))
+plot(pol)
+
+## 62. MultiPolygon - Multiple Nested Polygons
+
+p1 <- list(rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1)))
+p2 <- list(rbind(c(3,3), c(3,6), c(6,6), c(6,3), c(3,3))) 
+p3 <- list(rbind(c(2,2), c(2,7), c(7,7), c(7,2), c(2,2)))
+
+pol <-st_multipolygon(list(p1, p2, p3))
+plot(pol)
+
+## 63. MultiPolygon - Overlapping Polygons
+
+p1 <- list(rbind(c(1,1), c(1,8), c(5,8), c(5,1), c(1,1)))
+p2 <- list(rbind(c(3,2), c(3,7), c(7,7), c(7,2), c(3,2))) 
+
+pol <-st_multipolygon(list(p1, p2))
+plot(pol)
+
+## 64. MultiPolygon - Multiple Overlapping Polygons
+
+p1 <- list(rbind(c(1,1), c(1,6), c(6,6), c(6,1), c(1,1)))
+p2 <- lapply(p1, function(x) x + 1 )
+p3 <- lapply(p1, function(x) x + 2 )
+
+pol <-st_multipolygon(list(p1, p2, p3))
+plot(pol)
+
+## 65. MultiPolygon - Multiple Overlapping Polygons (5) 
+
+p1 <- list(rbind(c(1,2), c(1,7), c(3,7), c(3,2), c(1,2)))
+p2 <- list(rbind(c(5,2), c(5,7), c(7,7), c(7,2), c(5,2)))
+p3 <- list(rbind(c(2,6), c(2,8), c(6,8), c(6,6), c(2,6)))
+p4 <- list(rbind(c(2,1), c(2,3), c(6,3), c(6,1), c(2,1)))
+p5 <- list(rbind(c(2.5,2.5), c(2.5,6.5), c(5.5,6.5), c(5.5,2.5), c(2.5,2.5)))
+
+pol <-st_multipolygon(list(p1, p2, p3, p4, p5))
+plot(pol)
+
+## 66. MultiPolygon - Polygon/Hole-overlap overlaps Polygon covering hole 
+# unsure if correct
+
+p1 <- list(rbind(c(1,1), c(1,8), c(5,8), c(5,1), c(1,1)))
+p2_holes <- rbind(c(4,3), c(4,6), c(6,6), c(6,3), c(4,3))
+p2 <- list(rbind(c(3,2), c(3,7), c(7,7), c(7,2), c(3,2)), p2_holes) 
+
+pol <-st_multipolygon(list(p1, p2))
+plot(pol)
+
+## 67. MultiPolygon - Polygon/Hole-overlap overlaps Polygon inside hole
+# no idea
+
+## 68. MultiPolygon - Polygon/Hole-overlap hole overlaps Polygon
+# unsure
+
+p1 <- list(rbind(c(1,2), c(1,7), c(3,7), c(3,2), c(1,2)))
+p2 <- list(rbind(c(5,2), c(5,7), c(7,7), c(7,2), c(5,2)))
+t3 <- rbind(c(2,3), c(2,6), c(6,6), c(6,3), c(2,3))
+p3 <- list(t3,t3)
+
+pol <-st_multipolygon(list(p1, p2,p3))
+plot(pol)
+
+## 69. MultiPolygon - Polygon overlaps Polygon/Hole 
+# unsure
+
+p1 <- list(rbind(c(1,1), c(1,8), c(5,8), c(5,1), c(1,1)))
+p2_holes <- rbind(c(4,3), c(4,6), c(6,6), c(6,3), c(4,3))
+p2 <- list(rbind(c(3,2), c(3,7), c(7,7), c(7,2), c(3,2)), p2_holes) 
+p3 <- list(p2_holes)
+
+pol <-st_multipolygon(list(p1, p2,p3))
+plot(pol)
+
+## 70. MultiPolygon - Polygon/Hole-overlap overlaps Polygon
+# out of idea
+
+## 71. MultiPolygon - Polygon partially fills Polygon/Hole
+
+p1_holes <- rbind(c(3,2), c(3,7), c(6,7), c(6,2), c(3,2))
+p1 <- list(rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1)), p1_holes)
+p2 <- list(rbind(c(3,3), c(3,6), c(6,6),c(6,3), c(3,3)))
+
+pol <-st_multipolygon(list(p1, p2))
+plot(pol)
+
+## 72. MultiPolygon - Grid of adjacent Polygons
+## no idea
+
+## 73. MultiPolygon - Ring of adjacent Polygons 
+#no idea
+
