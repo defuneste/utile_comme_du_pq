@@ -12,8 +12,9 @@
 
 library(sf)
 library(sfheaders)
+# TODO retirer sfheaders et augmenter transform_in_sf pour ajouter le sf_type
 
-## 1.  usefull functions  ========================================================
+## 1.  usefull functions  ======================================================
 ### function to convert sfheaders to sf and plot it
 quick_plot <- function(df){
     plot(sfheaders::sf_polygon(df))
@@ -38,19 +39,32 @@ transform_in_sf <- function(pol, char) {
     return(pol_sf)
 }
 
+### extract the first word 
+# here just split everywhite space and take the first
+
+extract_first_word <- function(some_text) {
+    unlist(
+        strsplit(some_text, " ")
+    )[1]
+}
+
 ## 2. Creating a big list of error =============================================
 # TODO maybe divide name into "family of errors"
 
-##  1. Polygon - Exverted shell, point touch
+errors <- list()
+
+## 2.1 Polygon =================================================================
+###  1. Polygon - Exverted shell, point touch
 
 df <- data.frame(
     x = c(1, 1, 4, 8, 8, 4, 1),
     y = c(1, 8, 6, 1, 8, 6, 1)
 )
 
-df1 <- sfheaders::sf_polygon(df)
-df1$id <- "Polygon - Exverted shell, point touch"
-errors <- list("Polygon - Exverted shell, point touch" = df1)
+df_sf <- sfheaders::sf_polygon(df)
+df_sf$id <- "Polygon - Exverted shell, point touch"
+# df_sf$sf_type <- extract_first_word(df_sf$id)
+errors[[df_sf$id]] <- df_sf
 
 ##  2. Polygon - Exverted shell, point-line touch
 
@@ -61,9 +75,10 @@ df <- data.frame(
 
 ## add to the list 
 
-df2 <- sfheaders::sf_polygon(df)
-df2$id <- "Polygon - Exverted shell, point-line touch"
-errors[["Polygon - Exverted shell, point-line touch"]] <- df2
+df_sf <- sfheaders::sf_polygon(df)
+df_sf$id <- "Polygon - Exverted shell, point-line touch"
+df_sf$sf_type <- extract_first_word(df_sf$id)
+errors[[df_sf$id]] <- df_sf
 
 ##  3. Polygon - Exverted shell, line touch
 
@@ -72,9 +87,10 @@ df <- data.frame(
     y = c(1, 8, 8, 1, 8, 8, 1)
 )
 
-df3 <- sfheaders::sf_polygon(df)
-df3$id <- "Polygon - Exverted shell, line touch"
-errors[[df3$id]] <- df3
+df_sf <- sfheaders::sf_polygon(df)
+df_sf$id <- "Polygon - Exverted shell, line touch"
+df_sf$sf_type <- extract_first_word(df_sf$id)
+errors[[df_sf$id]] <- df_sf
 
 ## 4. Polygon - Inverted shell, point touch
 
@@ -85,6 +101,7 @@ df <- data.frame(
 
 df_sf <- sfheaders::sf_polygon(df)
 df_sf$id <- "Polygon - Inverted shell, point touch"
+df_sf$sf_type <- extract_first_word(df_sf$id)
 errors[[df_sf$id]] <- df_sf
 
 ## 5. Polygon - Inverted shell, point-line touch
