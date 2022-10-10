@@ -23,11 +23,11 @@ server <- function(input, output, session) {
     corrected <- reactive(sf::st_make_valid(selected()))
     
     output$plot_errors <- renderPlot({
-        plot(selected(), main = "errors")
+        plot_my_result(selected(), title = "errors")
     })
     
     output$plot_corrected <- renderPlot({
-        plot(corrected(), main = "corrected")
+        plot_my_result(corrected(), title = "corrected")
     })
     
     output$errors <- renderText({
