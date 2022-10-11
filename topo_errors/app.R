@@ -1,26 +1,40 @@
 library(shiny)
 library(sf)
+library(polyclip)
 
-#source("../erreur_topo.R")
+source("../erreur_topo.R")
 
 names_errors <- names(errors)
+function_option <- c("sf::st_make_valid()", "sf::st_buffer(x, 0)")
 
 ui <- fluidPage(
-    fluidRow(
-        column(6,
-               selectInput("errors", "Errors", choices = names_errors)
-        ),
-    
-    plotOutput("plot_errors"),
-    plotOutput("plot_corrected"),
-    textOutput("errors")
+    titlePanel(
+        "Correcting geometries"
+    ),
+    sidebarLayout(
+        sidebarPanel(
+            selectInput("errors", "Errors", choices = names_errors),
+            selectInput("select_func", "Pick a function:", choices = function_option)
+            ),
+        mainPanel(
+            plotOutput("plot_errors"),
+            plotOutput("plot_corrected"),
+            textOutput("errors")
+            )
     )
+    
 )
 
 server <- function(input, output, session) {
     
     selected <- reactive(errors[[input$errors]])
-    corrected <- reactive(sf::st_make_valid(selected()))
+    
+    corrected<- reactive({
+        switch(req(input$select_func),
+                "sf::st_make_valid()" = sf::st_make_valid(selected()),
+                "sf::st_buffer(x, 0)" = sf::st_buffer(selected(), 0))
+    })
+   
     
     output$plot_errors <- renderPlot({
         plot_my_result(selected(), title = "errors")

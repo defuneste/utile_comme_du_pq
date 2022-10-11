@@ -12,7 +12,7 @@
 
 library(sf)
 library(sfheaders)
-# TODO retirer sfheaders et augmenter transform_in_sf pour ajouter le sf_type
+# TODO remove sfheaders and improve transform_in_sf  to add sf_type
 
 ## 1.  usefull functions  ======================================================
 ### function to convert sfheaders to sf and plot it
@@ -55,8 +55,6 @@ st_cast_pt_no_error <- function(geom) {
     sf::st_cast(geom, "POINT", warn = FALSE)
     }
 
-
-test <- errors[[3]]
 ## doing a plot 
 plot_my_result <- function(geom, title = "some_text"){
     plot(geom$geometry, col = "aquamarine3", main = title)
@@ -65,7 +63,6 @@ plot_my_result <- function(geom, title = "some_text"){
         add = TRUE)
     }
 
-plot_my_result(test)
 
 ## 2. Creating a big list of error =============================================
 # TODO maybe divide name into "family of errors"
