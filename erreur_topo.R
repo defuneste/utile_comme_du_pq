@@ -16,6 +16,7 @@ library(sfheaders)
 
 ## 1.  usefull functions  ======================================================
 ### function to convert sfheaders to sf and plot it
+# TODO reorganize a bit function to get geometry vs functions to correct them
 quick_plot <- function(df){
     plot(sfheaders::sf_polygon(df))
 } 
@@ -55,6 +56,18 @@ st_cast_pt_no_error <- function(geom) {
     sf::st_cast(geom, "POINT", warn = FALSE)
     }
 
+## convert sf to terra to use terra::makeValid() 
+# then sf just to use same plot method
+
+testing_terra_makevalid <- function(geom) {
+                                terra::vect(geom) |>
+                                terra::makeValid() |>
+                                sf::st_as_sf()
+                                }
+
+## convert to list of x,y to use polyclip 
+# TODO
+
 ## doing a plot 
 plot_my_result <- function(geom, title = "some_text"){
     plot(geom$geometry, col = "aquamarine3", main = title)
@@ -62,7 +75,6 @@ plot_my_result <- function(geom, title = "some_text"){
          col = 2, pch = 15, cex = 2,
         add = TRUE)
     }
-
 
 ## 2. Creating a big list of error =============================================
 # TODO maybe divide name into "family of errors"
