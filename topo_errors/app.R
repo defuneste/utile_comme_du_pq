@@ -12,7 +12,8 @@ names_errors <- names(errors)
 function_option <- c("sf::st_make_valid()", 
                      "sf::st_buffer(x, 0)",
                      "terra::makeValid()",
-                     "polyclip::polyclip")
+                     "polyclip::polyclip()",
+                     "prepr::st_prepair()")
 # client part ==================================================================
 ui <- fluidPage(
     titlePanel(
@@ -45,7 +46,9 @@ server <- function(input, output, session) {
                 "sf::st_make_valid()" = sf::st_make_valid(selected()),
                 "sf::st_buffer(x, 0)" = sf::st_buffer(selected(), 0),
                 "terra::makeValid()" = testing_terra_makevalid(selected()),
-               "polyclip::polyclip" = testing_polyclip_polyclip(selected()))
+                "polyclip::polyclip()" = testing_polyclip_polyclip(selected()),
+                "prepr::st_prepair()" = prepr::st_prepair(selected())
+               )
     })
    
     

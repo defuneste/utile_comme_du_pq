@@ -96,12 +96,18 @@ testing_polyclip_polyclip <- function(geom) {
         lapply(sfheaders::sf_polygon) 
     do.call(rbind, list_of_sf)
 }
-           
-           
 
+
+## using pprepr
+# pprepr::st_pprepair(errors[[1]])
+           
 ## doing a plot 
+
+#using RColorBrewer
+a_quick_palette <- c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3", "#A6D854")
+
 plot_my_result <- function(geom, title = "some_text"){
-    plot(geom$geometry, col = c("aquamarine3", "chocolate2"), main = title)
+    plot(geom$geometry, col = a_quick_palette, main = title)
     plot(st_cast_pt_no_error(geom)$geometry, 
          col = 2, pch = 15, cex = 2,
         add = TRUE)

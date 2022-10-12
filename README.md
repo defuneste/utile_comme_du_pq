@@ -20,4 +20,19 @@ Implementation in {spatstat} is in the `owin` [function:]( https://github.com/sp
 
 `polyclip` works on **closed polygon** and take as input a list of x and y but the last vertex should not repeat the first (as in simple feature standard). It can also take a list of list for several polygons (see: `?polyclip::polyclip`). Polygon `B` is created in the `spatstat.geom::owin` as a larger rectangle.
 
+My implementation seems not to be perfect as converting to polyclip object to sf maybe bring some errors
+
+### prepr
+
+> Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
+
+it can be find here : https://gitlab.com/dickoa/prepr
+
+or https://github.com/dickoa/prepr
+
+More about here : 
+
+Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A triangulation-based approach to automatically repair GIS polygons. Computers & Geosciences 66:121–131.
+
+
 
