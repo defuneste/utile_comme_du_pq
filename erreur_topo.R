@@ -66,11 +66,42 @@ testing_terra_makevalid <- function(geom) {
                                 }
 
 ## convert to list of x,y to use polyclip 
-# TODO
+# I have an error with polyclip when I convert back to sf using sfheader
+
+testing_polyclip_polyclip <- function(geom) {
+    # convert to polyclip format
+    sfheader_obj <- sfheaders::sf_to_df(geom)
+    sfheader_obj <- sfheader_obj[1:nrow(sfheader_obj) - 1,]
+    list_of_x_y <- list(x = sfheader_obj$x, y = sfheader_obj$y)
+    # use of a part of spatstat : 
+    # https://github.com/spatstat/spatstat.geom/blob/d90441de5ce18aeab1767d11d4da3e3914e49bc7/R/window.R#L230-L240
+    xrange <- range(list_of_x_y$x)
+    yrange <- range(list_of_x_y$y)
+    xrplus <- mean(xrange) + c(-1,1) * diff(xrange)
+    yrplus <- mean(yrange) + c(-1,1) * diff(yrange)
+    # this tricks ..
+    bignum <- (.Machine$integer.max^2)/2
+    epsclip <- max(diff(xrange), diff(yrange))/bignum
+    # getting poly B in right order and polyclip format
+    poly_b <- list(list(x=xrplus[c(1,2,2,1)], y=yrplus[c(2,2,1,1)]))
+    
+    bb <- polyclip::polyclip(list_of_x_y, 
+                             poly_b, 
+                             "intersection",
+                             fillA="nonzero", 
+                             fillB="nonzero", 
+                             eps=epsclip)
+    # back to sf 
+    list_of_sf <- lapply(bb, as.data.frame) |> 
+        lapply(sfheaders::sf_polygon) 
+    do.call(rbind, list_of_sf)
+}
+           
+           
 
 ## doing a plot 
 plot_my_result <- function(geom, title = "some_text"){
-    plot(geom$geometry, col = "aquamarine3", main = title)
+    plot(geom$geometry, col = c("aquamarine3", "chocolate2"), main = title)
     plot(st_cast_pt_no_error(geom)$geometry, 
          col = 2, pch = 15, cex = 2,
         add = TRUE)

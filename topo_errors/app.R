@@ -11,7 +11,8 @@ source("../erreur_topo.R")
 names_errors <- names(errors)
 function_option <- c("sf::st_make_valid()", 
                      "sf::st_buffer(x, 0)",
-                     "terra::makeValid()")
+                     "terra::makeValid()",
+                     "polyclip::polyclip")
 # client part ==================================================================
 ui <- fluidPage(
     titlePanel(
@@ -43,7 +44,8 @@ server <- function(input, output, session) {
         switch(req(input$select_func),
                 "sf::st_make_valid()" = sf::st_make_valid(selected()),
                 "sf::st_buffer(x, 0)" = sf::st_buffer(selected(), 0),
-                "terra::makeValid()" = testing_terra_makevalid(selected()))
+                "terra::makeValid()" = testing_terra_makevalid(selected()),
+               "polyclip::polyclip" = testing_polyclip_polyclip(selected()))
     })
    
     
