@@ -10,11 +10,25 @@ I tried to reproduce some of this post with R in `erreur_topo.R` but some are st
 
 ## Tools used to correct geometries
 
+### sf::st_buffer(x, m)
+
+A great way of "cleaning some mess" but sometimes it feels like we are hammering stuff! 
+
+### {terra} and {sf}
+
+Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s2. The engine use in {sf} depend of your version of GEOS (currently mine is 3.10) and if you are using planar or spherical geometry.   
+
+- `terra::makeValid()` : https://rspatial.github.io/terra/reference/isvalid.html
+
+- `sf::st_make_valid()` : https://r-spatial.github.io/sf/reference/valid.html
+
+Both implementation have the option to provide you with more insight  (see `reasons` in `st_make_valid` and `messages` in `makeValid()`).
+
 ### polyclip 
 
 Github: https://github.com/baddstats/polyclip
 
-It use clipper: http://angusj.com/clipper2/Docs/Overview.htm (v1 or v2?) 
+It use clipper: http://angusj.com/clipper2/Docs/Overview.htm (v1 now but maybe v2 at one point) 
 
 Implementation in {spatstat} is in the `owin` [function:]( https://github.com/spatstat/spatstat.geom/blob/d90441de5ce18aeab1767d11d4da3e3914e49bc7/R/window.R#L230-L240)
 
