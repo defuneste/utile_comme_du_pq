@@ -3,7 +3,7 @@ list_package <- c("shiny", "sf", "polyclip", "terra")
 
 invisible(lapply(list_package, library, character.only = TRUE))
 
-source("../erreur_topo.R")
+source("erreur_topo.R")
 
 ## Shiny app ===================================================================
 
@@ -24,13 +24,15 @@ ui <- fluidPage(
             # input of type of erros
             # TODO Hierarchical select boxes
             selectInput("errors", "Errors", choices = names_errors),
+            textOutput("errors1"),
+            
             # input select function
-            selectInput("select_func", "Pick a function:", choices = function_option)
+            selectInput("select_func", "Pick a function:", choices = function_option),
+            textOutput("errors2")
             ),
         mainPanel(
             plotOutput("plot_errors"),
             plotOutput("plot_corrected"),
-            textOutput("errors")
             )
     )
     
@@ -56,11 +58,16 @@ server <- function(input, output, session) {
         plot_my_result(selected(), title = "errors")
     })
     
+    output$errors1 <- renderText({
+        paste0("Reason:  ", sf::st_is_valid(selected(), reason = TRUE))        
+    }
+    )
+    
     output$plot_corrected <- renderPlot({
         plot_my_result(corrected(), title = "corrected")
     })
     
-    output$errors <- renderText({
+    output$errors2 <- renderText({
         paste0("Is is valid ? ", sf::st_is_valid(corrected()), "!")
     })
 }
