@@ -1,9 +1,9 @@
 # Utile Comme du PQ
 
 This used to be a small repo with few files I needed to grab(yeah for french reader I created it when people were hoarding toilette papers...) but I guess now it is more about checking polygons geometries! 
-The goal is to make a small shiny app that help myself (and maybe other see: https://github.com/Robinlovelace/geocompr/issues/811) understand how various algorithms and their implementations are used to correct non valid geometries.
+The goal is to make a small shiny app that help myself (and maybe other see [here](https://github.com/Robinlovelace/geocompr/issues/811)) understand how various algorithms and their implementations are used to correct non valid geometries.
 
-The source of inspirations started with this great post from Paul Ramsey (see: https://www.crunchydata.com/blog/waiting-for-postgis-3.2-st_makevalid and http://s3.cleverelephant.ca/invalid.html) about a new implementation of `MakeValid()` in postGIS. 
+The source of inspirations started with this great post from Paul Ramsey (see [here](https://www.crunchydata.com/blog/waiting-for-postgis-3.2-st_makevalid) and [here](http://s3.cleverelephant.ca/invalid.html)) about a new implementation of `MakeValid()` in postGIS. 
 
 I tried to reproduce some of this post with R in `erreur_topo.R` but some are still missing. 
 
@@ -11,9 +11,9 @@ I tried to reproduce some of this post with R in `erreur_topo.R` but some are st
 
 First I should clarified what is a valid polygons: 
 
-> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action][##References])  
+> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action][#References])  
 
-This is specified by the [Simple Features][##References] set of standard
+This is specified by the [Simple Features][#References] set of standard
 
 ## List of tools that can be used 
 
@@ -27,7 +27,7 @@ This is specified by the [Simple Features][##References] set of standard
 
 A great way of "cleaning some mess" but sometimes it feels like we are hammering stuff! 
 
-### [{terra}][##References] and [{sf}][##References]
+### [{terra}][##References] and [{sf}][#References]
 
 Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s2. The engine use in {sf} depend of your version of GEOS (currently mine is 3.10) and if you are using planar or spherical geometry.   
 
@@ -37,29 +37,25 @@ Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s
 
 Both implementation have the option to provide you with more insight  (see `reasons` in `st_make_valid` and `messages` in `makeValid()`).
 
-### [{polyclip}][##References] 
+### [{polyclip}][#References] 
 
 Github: https://github.com/baddstats/polyclip
 
-It use clipper: http://angusj.com/clipper2/Docs/Overview.htm (v1 now but maybe v2 at one point) 
+It use [clipper](http://angusj.com/clipper2/Docs/Overview.htm) v1 now but maybe v2 at one point. 
 
 Implementation in {spatstat} is in the `owin` [function:]( https://github.com/spatstat/spatstat.geom/blob/d90441de5ce18aeab1767d11d4da3e3914e49bc7/R/window.R#L230-L240)
 
-`polyclip` works on **closed polygon** and take as input a list of x and y but the last vertex should not repeat the first (as in simple feature standard). It can also take a list of list for several polygons (see: `?polyclip::polyclip`). Polygon `B` is created in the `spatstat.geom::owin` as a larger rectangle.
+`polyclip` works on **closed polygon** and take as input a list of `x` and `y` but the last vertex should not repeat the first (as in simple feature standard). It can also take a list of list for several polygons (see: `?polyclip::polyclip`). Polygon `B` is created in the `spatstat.geom::owin` as a larger rectangle.
 
 My implementation seems not to be perfect as converting to polyclip object to sf's class maybe bring some errors.
 
-### [{prepr}][##References]
+### [{prepr}][#References]
 
 > Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
 
-it can be find here : https://gitlab.com/dickoa/prepr
+it can be find [here](https://gitlab.com/dickoa/prepr) or [here](https://github.com/dickoa/prepr)
 
-or https://github.com/dickoa/prepr
-
-More about here : 
-
-Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A triangulation-based approach to automatically repair GIS polygons. Computers & Geosciences 66:121–131.
+More about here the algorythm in this publication: Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A triangulation-based approach to automatically repair GIS polygons. Computers & Geosciences 66:121–131.
 
 
 ## References:
