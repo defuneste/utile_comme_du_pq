@@ -11,9 +11,9 @@ I tried to reproduce some of this post with R in `erreur_topo.R` but some are st
 
 First I should clarified what is a valid polygons: 
 
-> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action][1])  
+> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action][##References])  
 
-This is specified by the [Simple Features][2] set of standard
+This is specified by the [Simple Features][##References] set of standard
 
 ## List of tools that can be used 
 
@@ -27,7 +27,7 @@ This is specified by the [Simple Features][2] set of standard
 
 A great way of "cleaning some mess" but sometimes it feels like we are hammering stuff! 
 
-### [{terra}][3] and [{sf}][4]
+### [{terra}][##References] and [{sf}][##References]
 
 Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s2. The engine use in {sf} depend of your version of GEOS (currently mine is 3.10) and if you are using planar or spherical geometry.   
 
@@ -37,7 +37,7 @@ Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s
 
 Both implementation have the option to provide you with more insight  (see `reasons` in `st_make_valid` and `messages` in `makeValid()`).
 
-### [{polyclip}][5] 
+### [{polyclip}][##References] 
 
 Github: https://github.com/baddstats/polyclip
 
@@ -49,7 +49,7 @@ Implementation in {spatstat} is in the `owin` [function:]( https://github.com/sp
 
 My implementation seems not to be perfect as converting to polyclip object to sf's class maybe bring some errors.
 
-### [{prepr}][6]
+### [{prepr}][##References]
 
 > Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
 
@@ -64,14 +64,14 @@ Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A triangulation-based appr
 
 ## References:
 
-[1] PostGIS in Action, Third Edition,   
-[2] https://en.wikipedia.org/wiki/Simple_Features
-[3] Hijmans R (2022). _terra: Spatial Data Analysis_. R package version 1.6-17,
+1 Leo S., et Regina Obe. 2021. PostGIS in Action, Third Edition. Simon and Schuster.  
+2 https://en.wikipedia.org/wiki/Simple_Features  
+3 Hijmans R (2022). _terra: Spatial Data Analysis_. R package version 1.6-17,
   <https://CRAN.R-project.org/package=terra>.  
-[4] Pebesma, E., 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R
+4 Pebesma, E., 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R
   Journal 10 (1), 439-446, https://doi.org/10.32614/RJ-2018-009  
-[5] Johnson A, Baddeley A (2019). _polyclip: Polygon Clipping_. R package version 1.10-0,
+5 Johnson A, Baddeley A (2019). _polyclip: Polygon Clipping_. R package version 1.10-0,
   <https://CRAN.R-project.org/package=polyclip>.  
-[6] Dicko A (2020). _prepr: Automatic Repair of Single Polygons_. R package version 0.1.9000,
+6 Dicko A (2020). _prepr: Automatic Repair of Single Polygons_. R package version 0.1.9000,
   <https://gitlab.com/dickoa/prepr>.
   
