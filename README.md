@@ -11,9 +11,9 @@ I tried to reproduce some of this post with R in `erreur_topo.R` but some are st
 
 First I should clarified what is a valid polygons: 
 
-> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action][#References])  
+> Polygons have the concept of *validity*. The rings of a valid polygon may only intersect at distinct points -- rings can't overlap, and they can't share a common boundary. A polygon whose inner rings partly lie outside its exterior ring is also invalid  (p.38 [PosGIS in Action](#References))  
 
-This is specified by the [Simple Features][#References] set of standard
+This is specified by the [Simple Features](#References) set of standard
 
 ## List of tools that can be used 
 
@@ -27,7 +27,7 @@ This is specified by the [Simple Features][#References] set of standard
 
 A great way of "cleaning some mess" but sometimes it feels like we are hammering stuff! 
 
-### [{terra}][##References] and [{sf}][#References]
+### [{terra}](#References) and [{sf}](#References)
 
 Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s2. The engine use in {sf} depend of your version of GEOS (currently mine is 3.10) and if you are using planar or spherical geometry.   
 
@@ -37,7 +37,7 @@ Both have implementation of [GEOS](https://libgeos.org/) but {sf} can also use s
 
 Both implementation have the option to provide you with more insight  (see `reasons` in `st_make_valid` and `messages` in `makeValid()`).
 
-### [{polyclip}][#References] 
+### [{polyclip}](#References) 
 
 Github: https://github.com/baddstats/polyclip
 
@@ -49,7 +49,7 @@ Implementation in {spatstat} is in the `owin` [function:]( https://github.com/sp
 
 My implementation seems not to be perfect as converting to polyclip object to sf's class maybe bring some errors.
 
-### [{prepr}][#References]
+### [{prepr}](#References)
 
 > Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
 
