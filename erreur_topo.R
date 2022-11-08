@@ -725,3 +725,5 @@ errors[[pol_sf1$id]] <- pol_sf1
 
 ## XX. MultiPolygon - Ring of adjacent Polygons 
 #no idea
+
+saveRDS(errors,"data/errors")

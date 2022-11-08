@@ -3,15 +3,19 @@ list_package <- c("shiny", "sf", "polyclip", "terra")
 
 invisible(lapply(list_package, library, character.only = TRUE))
 
-source("erreur_topo.R")
+# To be sure we are going to use GEOS
+sf::sf_use_s2(FALSE)
+
+source("src/functions.R")
+errors <- readRDS("data/errors")
 
 ## Shiny app ===================================================================
 
 # vectors used in selectInput
 names_errors <- names(errors)
 function_option <- c("sf::st_make_valid()", 
-                     "sf::st_buffer(x, 0)",
                      "terra::makeValid()",
+                     "sf::st_buffer(x, 0)",
                      "polyclip::polyclip()",
                      "prepr::st_prepair()")
 # client part ==================================================================
