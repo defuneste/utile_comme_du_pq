@@ -8,11 +8,16 @@ sf::sf_use_s2(FALSE)
 
 source("src/functions.R")
 errors <- readRDS("data/errors")
+filter_data <- readRDS("data/filter_data")
 
 ## Shiny app ===================================================================
 
 # vectors used in selectInput
+
+types_errors <- unique(filter_data$features)
+
 names_errors <- names(errors)
+
 function_option <- c("sf::st_make_valid()", 
                      "terra::makeValid()",
                      "sf::st_buffer(x, 0)",
@@ -27,11 +32,16 @@ ui <- fluidPage(
         sidebarPanel(
             # input of type of erros
             # TODO Hierarchical select boxes
-            selectInput("errors", "Errors", choices = names_errors),
+            
+            radioButtons("type", "1. Select a type of features:", choices = types_errors), 
+            
+            selectInput("errors", "2. Select an associated error", choices = names_errors),
+            
             textOutput("errors1"),
             
             # input select function
-            selectInput("select_func", "Pick a function:", choices = function_option),
+            selectInput("select_func", "3. Pick a function to correct it:", choices = function_option),
+            
             textOutput("errors2")
             ),
         mainPanel(
@@ -43,9 +53,18 @@ ui <- fluidPage(
 )
 
 # server part ==================================================================
-server <- function(input, output, session) {
+server <- function(input, output, sesion) {
     
-    selected <- reactive(errors[[input$errors]])
+    types <- reactive({
+        base::subset(filter_data, features == input$type)
+    })
+
+    observeEvent(types(), {
+        choices <- types()$errors
+        updateSelectInput(inputId = "errors", choices = choices) 
+    })
+    
+    selected <- reactive({errors[[input$errors]]})
     
     corrected<- reactive({
         switch(req(input$select_func),
@@ -63,7 +82,7 @@ server <- function(input, output, session) {
     })
     
     output$errors1 <- renderText({
-        paste0("Reason:  ", sf::st_is_valid(selected(), reason = TRUE))        
+        paste0("Reason:  ", sf::st_is_valid(selected(), reason = TRUE), "\n")        
     }
     )
     

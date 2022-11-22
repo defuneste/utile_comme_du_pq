@@ -45,7 +45,7 @@ transform_in_sf <- function(pol, char) {
 
 extract_first_word <- function(some_text) {
     unlist(
-        strsplit(some_text, " ")
+        strsplit(some_text, " - ")
     )[1]
 }
 

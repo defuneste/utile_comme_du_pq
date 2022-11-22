@@ -115,7 +115,7 @@ p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
 p2 <- rbind(c(2,2), c(2,6), c(4,5), c(6,2), c(6,6), c(4,5), c(2,2))
 pol <-st_polygon(list(p1,p2))
 
-pol_sf1 <- transform_in_sf(pol, "polygon/hole Exverted hole, point touch")
+pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Exverted hole, point touch")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 9 Polygon/hole Exverted hole, point-line touch 
@@ -123,7 +123,7 @@ errors[[pol_sf1$id]] <- pol_sf1
 p2 <- rbind(c(2,2), c(2,6), c(6,6), c(6,2), c(4,6), c(2,2))
 pol <-st_polygon(list(p1,p2))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon/hole Exverted hole, point-line touch")
+pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Exverted hole, point-line touch")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 10 Polygon/Hole Exverted hole, line touch
@@ -131,7 +131,7 @@ errors[[pol_sf1$id]] <- pol_sf1
 p2 <- rbind(c(2,2), c(2,6), c(3,5), c(4,5), c(6,6), c(6,2), c(4,5), c(3,5), c(2,2))
 pol <-st_polygon(list(p1,p2))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon/Hole Exverted hole, line touch")
+pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Exverted hole, line touch")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 11 Polygon/hole - Inverted hole, point touch 
@@ -145,7 +145,7 @@ inner <- data.frame(
 
 p2 <- scaling_sfheader(inner)
 pol <-st_polygon(list(p1,p2))
-pol_sf1 <- transform_in_sf(pol, "Polygon/hole - Inverted hole, point touch")
+pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Inverted hole, point touch")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 12 Polygon/Hole - Inverted hole, point-line touch
@@ -289,7 +289,7 @@ errors[[pol_sf1$id]] <- pol_sf1
 p1 <- rbind(c(1,1), c(1,8), c(6,8), c(3,8), c(8,8), c(8,1), c(1,1))
 pol <-st_polygon(list(p1))
 
-pol_sf1 <- transform_in_sf(pol, "Zero-width spike along boundary")
+pol_sf1 <- transform_in_sf(pol, "Polygon - Zero-width spike along boundary")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 27. Polygon/Hole - Zero-width spike splitting hole 
@@ -396,7 +396,7 @@ p1 <- rbind(c(1,1), c(8,1), c(8,7), c(3,7), c(3,5), c(7,5), c(7,3)
             , c(5,3), c(5,8), c(1, 8), c(1,1))
 pol <-st_polygon(list(p1))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap; Pos and Neg winding")
+pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap; Pos. and Neg. winding")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 37. Polygon - Self-overlap; double Pos and single Neg winding 
@@ -405,7 +405,7 @@ p1 <- rbind(c(2,1), c(2,7), c(6,7), c(6,2), c(3,2), c(3,6), c(5,6)
             , c(5,3), c(8,3), c(8, 5), c(1,5), c(1,8),c(7,8), c(7,1), c(2,1))
 pol <-st_polygon(list(p1))
 
-pol_sf1 <- transform_in_sf(pol, "Self-overlap; double Pos and single Neg winding")
+pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap; double Pos. and single Neg. winding")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 38. Polygon - Self-overlap - Pos and Neg winding 
@@ -415,7 +415,7 @@ p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(6,1), c(3,3), c(7,6)
             , c(6,3), c(3,1),  c(1,1))
 pol <-st_polygon(list(p1))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap - Pos and Neg winding")
+pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap;  Pos. and Neg. winding")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 39. Polygon - Self-overlap; exterior
@@ -434,7 +434,7 @@ p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,2), c(2,2), c(2,7), c(7,7)
             c(5,1), c(1,1))
 pol <-st_polygon(list(p1))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap; Spiral with Pos winding")
+pol_sf1 <- transform_in_sf(pol, "Polygon - Self-overlap; Spiral with Pos. winding")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 41. Polygon/Hole - Bowties 
@@ -473,7 +473,7 @@ p2 <- rbind(c(2,2), c(2,7), c(7,7), c(7,2.5), c(2.5,2.5)
             c(6,3.5), c(3.5,3.5), c(3.5,5.5), c(5.5,5.5), c(5.5,2), c(2,2))
 pol <-st_polygon(list(p1, p2))
 
-pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Hole Self-overlap - Spiral with Neg winding")
+pol_sf1 <- transform_in_sf(pol, "Polygon/Hole - Hole Self-overlap - Spiral with Neg. winding")
 errors[[pol_sf1$id]] <- pol_sf1
 
 ## 45. Polygon/Hole - Hole Self-overlap - exterior
@@ -535,7 +535,7 @@ errors[[pol_sf1$id]] <- pol_sf1
 
 ## 50. Polygon/Holes - Cover Exactly 
 
-p1 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
+p2 <- rbind(c(1,1), c(1,8), c(8,8), c(8,1), c(1,1))
 p2 <- rbind(c(1,1), c(1,4.5), c(4.5,4.5), c(4.5,1), c(1,1))
 p3 <- rbind(c(1,4.5), c(1,8), c(4.5,8), c(4.5,4.5), c(1,4.5))
 p4 <- rbind(c(4.5,4.5), c(4.5,8), c(8,8), c(8,4.5), c(4.5,4.5))
@@ -726,4 +726,15 @@ errors[[pol_sf1$id]] <- pol_sf1
 ## XX. MultiPolygon - Ring of adjacent Polygons 
 #no idea
 
+
+## 2.2 Table to filter data ====================================================
+filter_data <- data.frame(
+    id = 1:length(errors),
+    features = sapply(names(errors), function(x) extract_first_word(x)),
+    errors = names(errors)
+)
+
+row.names(filter_data) <- NULL
+
 saveRDS(errors,"data/errors")
+saveRDS(filter_data, "data/filter_data")
