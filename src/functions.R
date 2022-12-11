@@ -114,6 +114,17 @@ testing_polyclip_polyclip <- function(geom) {
 ## using pprepr
 # pprepr::st_pprepair(errors[[1]])
 
-# using geos
+# using geos, here I can choose the method and what happens to empty geom
 
-
+testing_geos_make_valid <- function(geom) {
+    pol_id = data.frame(geom$id)
+    pol_sfc = geos::as_geos_geometry(geom) |>
+        geos::geos_make_valid(
+            make_valid_params = geos::geos_make_valid_params(keep_collapsed = TRUE,
+                                                             method = "make_valid_linework")
+        ) |>
+        geos::geos_write_wkb() |>
+        sf::st_as_sfc()
+    pol_sf = sf::st_sf(pol_id, geometry = pol_sfc)
+    return(pol_sf)
+}

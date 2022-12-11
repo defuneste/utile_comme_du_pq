@@ -20,6 +20,7 @@ names_errors <- names(errors)
 
 function_option <- c("sf::st_make_valid()", 
                      "terra::makeValid()",
+                     "geos::geos_make_valid()",
                      "sf::st_buffer(x, 0)",
                      "polyclip::polyclip()",
                      "prepr::st_prepair()")
@@ -72,7 +73,8 @@ server <- function(input, output, sesion) {
                 "sf::st_buffer(x, 0)" = sf::st_buffer(selected(), 0),
                 "terra::makeValid()" = testing_terra_makevalid(selected()),
                 "polyclip::polyclip()" = testing_polyclip_polyclip(selected()),
-                "prepr::st_prepair()" = prepr::st_prepair(selected())
+                "prepr::st_prepair()" = prepr::st_prepair(selected()),
+                "geos::geos_make_valid()" = testing_geos_make_valid(selected())
                )
     })
    
