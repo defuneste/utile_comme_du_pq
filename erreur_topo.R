@@ -20,6 +20,8 @@ source("src/functions.R")
 ## 2. Creating a big list of error =============================================
 # TODO maybe divide name into "family of errors"
 
+create_my_errors <- function(){
+
 errors <- list()
 
 ## 2.1 Polygon =================================================================
@@ -733,8 +735,12 @@ filter_data <- data.frame(
     features = sapply(names(errors), function(x) extract_first_word(x)),
     errors = names(errors)
 )
-
 row.names(filter_data) <- NULL
+return(errors)
 
-saveRDS(errors,"data/errors")
-saveRDS(filter_data, "data/filter_data")
+}
+
+errors <- create_my_errors()
+
+#saveRDS(errors,"data/errors")
+#saveRDS(filter_data, "data/filter_data")
